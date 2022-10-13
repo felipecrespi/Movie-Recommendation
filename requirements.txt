@@ -1,0 +1,18 @@
+# Python libraries I'll be using on this project.
+
+# Testing and code checking
+pytest
+python-ta
+
+# Graphics and data visualization
+tkinter
+PIL
+
+# Data filtering/aggregation/storing
+csv
+os
+
+# Web scrapping/image download
+requests
+imdbpy
+movieposters
