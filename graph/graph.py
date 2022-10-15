@@ -35,26 +35,6 @@ class _Vertex:
         self.kind = kind
         self.neighbours = {}
 
-    def degree(self) -> int:
-        """Return the degree of this vertex."""
-        return len(self.neighbours)
-
-    def check_connected(self, target_item: Any, visited: set[_Vertex]) -> bool:
-        """Return whether this vertex is connected to a vertex corresponding to target_item,
-        by a path that DOES NOT use any vertex in visited.
-
-        Preconditions:
-            - self not in visited
-        """
-        if self.item == target_item:
-            return True
-        else:
-            visited.add(self)
-            # new_visited = visited.union({self})
-            return any(u.check_connected(target_item, visited)
-                       for u in self.neighbours
-                       if u not in visited)
-
 
 class Graph:
     """A graph used to represent a movie review network.
@@ -98,17 +78,6 @@ class Graph:
             v2.neighbours[v1] = score
         else:
             raise ValueError
-
-    def adjacent(self, item1: Any, item2: Any) -> bool:
-        """Return whether item1 and item2 are adjacent vertices in this graph.
-
-        Return False if item1 or item2 do not appear as vertices in this graph.
-        """
-        if item1 in self._vertices and item2 in self._vertices:
-            v1 = self._vertices[item1]
-            return any(v2.item == item2 for v2 in v1.neighbours)
-        else:
-            return False
 
     def get_neighbours(self, item: Any) -> set[tuple[Any, int]]:
         """Return a set of tuples, each containing the neighbours of the given item and
@@ -159,7 +128,7 @@ class Graph:
             total_user_vertices = (len(path) - 1) / 2
             paths_so_far.append((len(path), review_score_so_far / total_user_vertices))
 
-        elif len(path) > 5:
+        elif len(path) >= 5:
             return  # though still connected, vertices too distant will not be considered
 
         else:
@@ -177,27 +146,12 @@ class Graph:
         average review scores of all the possible paths between the vertices
         corresponding to start_item and target_item.
         """
-
         # Create a list to store all possible paths
         paths_so_far = []
 
         # Mutate paths_so_far with the helper function
         self._get_all_paths_helper(start_item, target_item, set(), [], paths_so_far, 0)
         return paths_so_far
-
-    def connected(self, item1: Any, item2: Any) -> bool:
-        """Return whether item1 and item2 are connected vertices
-        in this graph.
-
-        Return False if item1 or item2 do not appear as vertices
-        in this graph.
-        """
-        if item1 in self._vertices and item2 in self._vertices:
-            v1 = self._vertices[item1]
-
-            return v1.check_connected(item2, set())
-        else:
-            return False
 
 
 if __name__ == '__main__':

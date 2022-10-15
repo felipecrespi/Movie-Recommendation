@@ -394,26 +394,18 @@ class Result(Frame):
 
             poster.pack(in_=movie_frame, side=TOP)
 
-            title = Label(text=movie, bg='#363636', fg='white')
+            title = Label(text=info['title'], bg='#363636', fg='white')
             title.pack(in_=movie_frame, side=TOP)
 
-            cast = ''
-            for actor in info['cast']:
-                cast += actor + ', '
-            cast = Label(text='Cast: ' + cast[:-2], wraplengt=200, bg='#363636', fg='white')
+            cast = Label(text='Cast: ' + info['cast'], wraplengt=200, bg='#363636', fg='white')
             cast.pack(in_=movie_frame, side=TOP)
 
-            director = ''
-            for d in info['director(s)']:
-                director += d + ', '
-            if director == '':
-                director = 'Could not find director.  '
-            director = Label(text='Directed by: ' + director[:-2], bg='#363636', fg='white')
+            director = Label(text='Directed by: ' + info['director(s)'], bg='#363636', fg='white')
             director.pack(in_=movie_frame, side=TOP)
 
             rating = Label(text='Rating: ' + str(info['rating']) + '/10', bg='#363636', fg='white')
             rating.pack(in_=movie_frame, side=TOP)
-            synopsis = Label(text='Synopsis: ' + info['synopsis'][0], wraplengt=200, bg='#363636',
+            synopsis = Label(text='Synopsis: ' + info['synopsis'], wraplengt=200, bg='#363636',
                              fg='white')
             synopsis.pack(in_=movie_frame, side=TOP)
 

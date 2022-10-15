@@ -1,18 +1,3 @@
-"""
-CSC111 Winter 2021 Final Project: recommend_films
-
-I
-
-Copyright and Usage Information
-===============================
-This file is provided solely for the personal and private use of students
-taking CSC111 at the University of Toronto St. George campus. All forms of
-distribution of this code, whether as given or with any changes, are
-expressly prohibited. For more information on copyright for CSC111 materials,
-please consult our Course Syllabus.
-
-This file is Copyright (c) 2020 Felipe Benevides Crespi
-"""
 from graph.graph import Graph
 
 
@@ -35,13 +20,11 @@ def one_movie_recommendation(movie: str, graph: Graph) -> list[tuple[float, str]
     """Return a sorted list of tuples with recommended movies and their individual
     recommendation value based solely on one movie."""
     movies = []
-
     for m in graph.get_all_vertices('movie'):
         if m != movie:
             rec_value = get_recommendation_value(graph.get_all_paths(movie, m))
             if rec_value > 0:
                 movies.append((rec_value, m))
-
     movies.sort(reverse=True)
     return movies
 
