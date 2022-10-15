@@ -34,11 +34,12 @@ def clean_films() -> None:
     """Deletes all files in data/posters"""
     folder = 'data/posters'
     for filename in os.listdir(folder):
-        file_path = os.path.join(folder, filename)
-        try:
-            os.unlink(file_path)
-        except Exception as e:
-            print('Failed to delete %s. Reason: %s' % (file_path, e))
+        if filename != '.gitkeep':
+            file_path = os.path.join(folder, filename)
+            try:
+                os.unlink(file_path)
+            except Exception as e:
+                print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
 if __name__ == '__main__':
